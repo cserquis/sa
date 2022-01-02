@@ -1,0 +1,1 @@
+[{"module_name":"projects","record_name_singular":"project","record_name_plural":"projects","identifier_column":"project_title"},{"module_name":"tags","record_name_singular":"tag","record_name_plural":"tags","identifier_column":"tag_name"},{"relationship_type":"many to many"}]

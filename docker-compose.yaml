@@ -1,0 +1,34 @@
+version: '3'
+services:
+  soli-app:
+    build:
+      context: .
+    volumes:
+    - .:/sa:delegated
+    ports:
+      - "80:80"
+    depends_on:
+      - mysql
+  mysql: 
+    image: mariadb:10.2.29
+    environment: 
+      MYSQL_USER: sa
+      MYSQL_DATABASE: sa
+      MYSQL_PASSWORD: sa
+      MYSQL_ROOT_PASSWORD: root
+    volumes: 
+      - mariadb-sa-data:/var/lib/mysql
+      - ./sa.sql:/sa.sql
+    ports:
+      - 3306 
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    links:
+      - mysql:mysql
+    ports:
+      - 8000:80
+    environment:
+      - mysql
+volumes:
+  mariadb-sa-data:
+      

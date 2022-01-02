@@ -1,0 +1,1 @@
+[{"module_name":"collaborators","record_name_singular":"collaborator","record_name_plural":"collaborators","identifier_column":"collaborator_name"},{"module_name":"collaborator_areas","record_name_singular":"collaborator area","record_name_plural":"collaborator areas","identifier_column":"area"},{"relationship_type":"many to many"}]
