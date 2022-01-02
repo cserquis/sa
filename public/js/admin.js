@@ -306,7 +306,7 @@ if (typeof drawComments == 'boolean') {
                     var tblRow = document.createElement("tr");
                     var tblCell = document.createElement("td");
                     var recordUrl = baseUrl + 'trongate_comments/submit_delete/' + comments[i]['id'];
-                    var deleteBtn = '<a href="' + recordUrl + '"><button type="button" class="button danger button-small" "><i class="fa fa-trash"></i><small></small></button></a>';
+                    var deleteBtn = '<a href="' + recordUrl + '"><button type="button" class="button danger button-small" style="background-color:#ee0000 !important; padding-right: .8em;  "><i class="fa fa-trash"></i><small></small></button></a>';
                     var pDate = document.createElement("p");
                     var pText = document.createTextNode(comments[i]['date_created']);
                     pDate.appendChild(pText);

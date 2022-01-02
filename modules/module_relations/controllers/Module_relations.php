@@ -346,7 +346,7 @@ die(); */
                       
                 FROM
                     [relation_name]
-                RIGHT OUTER JOIN
+                LEFT OUTER JOIN
                     [alt_module]
                 ON
                     [relation_name].[alt_module]_id = [alt_module].id
@@ -362,11 +362,11 @@ die(); */
         $options = [];
         foreach($alt_records as $record) {
 
-            if (!in_array($record['value'], $exclude_array)) {
+            if ((!in_array($record['value'], $exclude_array)) && (!in_array($record['value'], $options))) {
                 $options[] = $record;
             }
 
-        }
+        }       
 
         http_response_code(200);
         echo json_encode($options);
@@ -437,6 +437,13 @@ die(); */
             $row_data['value'] = trim($value);
             $available_records[] = $row_data;
         }
+
+/*         foreach ($available_records as $key => $value){
+            if(!in_array($value, $result))
+              $available_records[$key]=$value;
+          } */
+
+      /*   $available_records = array_unique($available_records); */
 
         return $available_records;
     }

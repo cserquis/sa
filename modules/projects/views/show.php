@@ -80,7 +80,7 @@
                 </div>
                 <div class="row">
                     <div>Date Created</div>
-                    <div><?= $date_created ?></div>
+                    <div><?= date('Y-m-d',$date_created) ?></div>
                 </div>
                 <div class="row">
                     <div>Live on Website</div>
@@ -130,6 +130,7 @@
             }
             ?>
         </div>
+        <?= Modules::run('my_filezone/_draw_summary_panel', $update_id, $filezone_settings); ?>
     </div>
     <div class="card">
         <div class="card-heading">
@@ -141,17 +142,18 @@
                 <div id="comments-block"><table></table></div>
             </div>
         </div>
-    </div>
-    
-    <?= Modules::run('my_filezone/_draw_summary_panel', $update_id, $filezone_settings); ?>
-    
-    <?= Modules::run('module_relations/_draw_summary_panel', 'clients', $token) ?>
+        <?= Modules::run('module_relations/_draw_summary_panel', 'clients', $token) ?>
 
     <?= Modules::run('module_relations/_draw_summary_panel', 'collaborators', $token) ?>
   
     <?= Modules::run('module_relations/_draw_summary_panel', 'categories', $token) ?>
     
     <?= Modules::run('module_relations/_draw_summary_panel', 'tags', $token) ?>
+    </div>
+    
+    
+    
+    
   
 </div>
 <div class="modal" id="comment-modal" style="display: none;">

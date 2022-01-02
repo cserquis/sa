@@ -40,12 +40,12 @@ if (count($rows)>0) { ?>
             foreach($rows as $row) { ?>
             <tr>
             <td><?= anchor('clients/show/'.$row->id, 'View', $attr) ?></td>
-                <td><?= $row->last_contact ?></td>
+                <td><?php if($row->last_contact != '1970-01-01 01:00:00') { echo $row->last_contact;} ?></td>
                 <td><?= $row->client_name ?></td>
                 <td><?= $row->client_email ?></td>
                 <td><?= $row->telephone_number ?></td>
                 <td><?= $row->address ?></td>
-                <td><?= date('l jS F Y',  strtotime($row->since)) ?></td>
+                <td><?php if($row->since != '1970-01-01') { echo date('l jS F Y',  strtotime($row->since));}  ?></td>
                 <td><?= $row->active ?></td>                        
             </tr>
             <?php

@@ -27,10 +27,10 @@ if (count($rows)>0) { ?>
                 <th style="width: 20px;">Action</th> 
                 <th>Picture</th>
                 <th>Project Title</th>
-                <th>Project Name</th>
+                <th>Project Name / Client</th>
                 <th>Location</th>
-                <th>Start Date</th>
-                <th>Finish Date</th>
+                <th>Start Date to Finish Date</th>
+                <th>Categories</th>
                 <th>Postcard</th>
                 <th>Final Cost</th>
                 <th>Date Created</th>
@@ -42,15 +42,17 @@ if (count($rows)>0) { ?>
             $attr['class'] = 'button alt';
             foreach($rows as $row) { 
                 $image_url = BASE_URL.'pictures/projects_pics_thumbnails/'.$row->id.'/'.$row->picture;
+                $categories = $row->categories;
+                $clients = $row->clients;
                 ?>
             <tr>
                 <td><?= anchor('projects/show/'.$row->id, 'View', $attr) ?></td>
                 <td><img src="<?= $image_url ?>" alt="<?= $row->project_title ?> Serquis & Associates" style="max-width: 100px;"></td>
                 <td><?= $row->project_title ?></td>
-                <td><?= $row->project_name ?></td>
+                <td><?= $row->project_name ?> <br>  <?php foreach($clients as $client) {echo $client; echo '<br>';}  ?></td>
                 <td><?= $row->location ?></td>
-                <td><?= $row->start_date  ?></td>
-                <td><?= $row->finish_date  ?></td>           
+                <td><?= $row->start_date  ?> <?= $row->finish_date  ?></td>
+                <td><?php foreach($categories as $category) {echo $category; echo '<br>';}  ?></td>           
                 <td><?= $row->postcard ?></td>
                 <td><?= $row->final_cost ?></td>
                 <td><?= date('Y-m-d',  $row->date_created) ?></td>

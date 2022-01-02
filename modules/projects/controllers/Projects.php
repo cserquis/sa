@@ -128,7 +128,7 @@ class Projects extends Trongate {
                 AND projects.live_on_website = 1
                 WHERE categories.id = :cat_id
             ORDER BY 
-            projects.id desc
+            projects.id 
             LIMIT [offset], [limit] 
             ';
             $sql = str_replace('[offset]',$pagination_data['offset'], $sql);
@@ -714,11 +714,36 @@ class Projects extends Trongate {
     function _get_category($categories_id) {
         $category_c = $this->model->get_one_where('id', $categories_id, 'categories');
         if ($category_c == true){
-            $category = $category_c->category_name;
+            $category = '<a href="<?= BASE_URL ?>categories/show/'.$category_c->id.'" class="button-small">'.$category_c->category_name.'</a>';
         } else {
             $category = "";
         }        
         return $category;
+    }
+
+    function _get_clients($value) {
+        $clients_result = $this->model->get_many_where('projects_id', $value, 'associated_projects_and_clients');
+        if ($clients_result == false){
+            $clients_print = [];
+        } else {
+            $this->module('clients');
+            $clients_print = [];
+            foreach ($clients_result as $key => $value) {
+              $clients_print[$key] = $this->_get_client($clients_result[$key]->clients_id);             
+            }
+        }  
+        
+        return $clients_print;
+    }
+
+    function _get_client($clients_id) {
+        $client_c = $this->model->get_one_where('id', $clients_id, 'clients');
+        if ($client_c == true){
+            $client = '<a href="<?= BASE_URL ?>clients/show/'.$client_c->id.'" class="button-small">'.$client_c->client_name.'</a>';
+        } else {
+            $client = "";
+        }        
+        return $client;
     }
     
     function our_work() {
@@ -1015,6 +1040,8 @@ class Projects extends Trongate {
                 $row->postcard = ($row->postcard == 1 ? 'YES' : 'NO');
                 $row->start_date = ($row->start_date == '0000-00-00' ? ' ' : date('m\/d\/Y', strtotime($row->start_date)));
                 $row->finish_date = ($row->finish_date == '0000-00-00' ? ' ' : date('m\/d\/Y', strtotime($row->finish_date)));
+                $row->categories = $this->_get_categories($row->id);
+                $row->clients = $this->_get_clients($row->id);
                 $rows[] = $row;
             }
         }

@@ -13,6 +13,12 @@ class Clients extends Trongate {
 
         if (($submit == '') && (is_numeric($update_id))) {
             $data = $this->_get_data_from_db($update_id);
+            if($data['last_contact'] == '1970-01-01 01:00:00') {
+                $data['last_contact'] = ''; 
+            }
+            if($data['since'] == '1970-01-01') {
+                $data['since'] = ''; 
+            }
         } else {
             $data = $this->_get_data_from_post();
         }

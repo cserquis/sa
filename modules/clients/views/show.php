@@ -52,7 +52,7 @@
                 </div>
                 <div class="row">
                     <div>Last Contact</div>
-                    <div><?= $last_contact ?></div>
+                    <div><?php if($last_contact != '1970-01-01 01:00:00') { echo $last_contact;} ?></div>
                 </div>
                 <div class="row">
                     <div>Active</div>

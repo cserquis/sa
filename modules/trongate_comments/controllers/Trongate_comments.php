@@ -62,7 +62,7 @@ class Trongate_comments extends Trongate {
             }
 
             $date_created = date('l jS \of F Y \a\t h:i:s A', $value->date_created);
-            $row_data['date_created'] = 'Posted by '.$posted_by.' on '.$date_created;
+            $row_data['date_created'] = ' On '.$date_created;
             $row_data['id'] = $value->id;
             $row_data['user_id'] = $value->user_id;
             $row_data['target_table'] = $value->target_table;
