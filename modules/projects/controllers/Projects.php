@@ -635,7 +635,7 @@ class Projects extends Trongate {
         } else {
             $data['picture_path'] = $data['no_picture'];           
         }
-        if($data['project_obj']->issuu_link != '') {
+        if($data['project_obj']->issuu_code != '') {
             $data['html_issuu'] = $this->_get_projects_issuu_html($data);
         } else {
             $data['html_issuu'] = '';

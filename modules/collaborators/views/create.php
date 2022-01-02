@@ -1,4 +1,4 @@
-<h1><?= $headline ?></h1>
+<h1><?= $headline ?><span><?php echo anchor($cancel_url, 'Go BACK', array('class' => 'button alt go-right')); ?></span></h1> 
 <?= validation_errors() ?>
 <div class="card">
     <div class="card-heading">
@@ -7,8 +7,11 @@
     <div class="card-body">
         <?php
         echo form_open($form_location);
+        echo '<div class="grid-container-3">';
         echo form_label('Last Contact');
         echo form_input('last_contact', $last_contact, array("class"=>"datetime-picker", "autocomplete"=>"off", "placeholder" => "Enter Last Contact"));
+        echo form_submit('submit', 'Submit');
+        echo '</div>';
         echo form_label('Collaborator Name');
         echo form_input('collaborator_name', $collaborator_name, array("placeholder" => "Enter Collaborator Name"));
         echo form_label('Collaborator email');
@@ -26,3 +29,12 @@
         ?>
     </div>
 </div>
+
+<style>
+
+.grid-container-3 {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 1em;
+}
+</style>

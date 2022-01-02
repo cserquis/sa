@@ -130,7 +130,7 @@ if(!isset($_SESSION['screen_width'])){ ?>
         "url": "<?= current_url() ?>",
         "sameAs": [
             "<?= BASE_URL ?>contactus",
-            "<?= BASE_URL ?>our_work/projects",
+            "<?= BASE_URL ?>projects/our_work",
             "<?= BASE_URL ?>news/display",
             "https://www.trailheadsantafe.com/"
         ],

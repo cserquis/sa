@@ -45,7 +45,7 @@ if ($total_rows>0) {
         }
 
         if($is_lookbook == 1) {
-            $project_url = BASE_URL.'our_work/lookbooks/'.$project->url_string; 
+            $project_url = BASE_URL.'projects/lookbooks/'.$project->url_string; 
         } else {
             $project_url = BASE_URL.'projects/our_project/'.$project->url_string;
         }   

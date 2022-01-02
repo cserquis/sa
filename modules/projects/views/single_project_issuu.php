@@ -1,7 +1,7 @@
 <section  class="photos-project center" >
     <?php 
 
-    $issuu_link = $project_obj->issuu_link;
+    $issuu_link = $project_obj->issuu_code;
 	
     
     ?>

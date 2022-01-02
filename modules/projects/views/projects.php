@@ -137,7 +137,7 @@ function submitSearch(cat_id){
 
     localStorage.setItem("category", cat_id);
 
-    var target_url = baseUrl + 'our_work/api_projects_categories/' + cat_id;
+    var target_url = baseUrl + 'projects/api_projects_categories/' + cat_id;
 
     const http = new XMLHttpRequest()
     http.open('GET', target_url)

@@ -50,11 +50,9 @@
                 </div>
             </div>
         </div>
+        <?= Modules::run('module_relations/_draw_summary_panel', 'collaborator_areas', $token) ?>
     </div>
-    
-    <?= Modules::run('module_relations/_draw_summary_panel', 'collaborator_areas', $token) ?>
-
-    
+   
     <?= Modules::run('module_relations/_draw_summary_panel', 'projects', $token) ?>
 
     <div class="card">

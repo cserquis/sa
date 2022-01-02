@@ -15,13 +15,14 @@
     <header>    
         <nav class="hide-sm">
             <ul>
-                <li><?= anchor('#', 'Logo') ?></li>
-                <li><?= anchor('#', 'About') ?></li>
-                <li><?= anchor('#', 'Values') ?></li>
-                <li><?= anchor('#', 'News') ?></li>
-                <li><?= anchor('#', 'Contact') ?></li>
-                <li><?= anchor('#', 'Clients') ?></li>
-                <li><?= anchor('#', 'Partners') ?></li>
+                <li><?= anchor('projects/manage', 'Projects') ?></li>
+                <li><?= anchor('clients/manage', 'Clients') ?></li>
+                <li><?= anchor('collaborators/manage', 'Collaborators') ?></li>
+                <li><?= anchor('homepage_pictures/manage', 'Homepage Pictures') ?></li>
+                <li><?= anchor('website_owners/show/1', 'Website') ?></li>
+                <li><?= anchor('testimonials/manage', 'Testimonials') ?></li>
+                <li><?= anchor('houzz_pictures/manage', 'Houzz Pictures') ?></li>
+                <li><?= anchor('publications/manage', 'Publications') ?></li>
             </ul>        
         </nav>
         <div id="hamburger" class="hide-lg" onclick="openSlideNav()">&#9776;</div>

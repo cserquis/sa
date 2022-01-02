@@ -19,5 +19,5 @@
     <li><?= anchor('abouts/manage', '<i class="fa fa-hand-o-left"></i> Manage About Page') ?></li>
     <li><?= anchor('sections_texts/manage', '<i class="fa fa-file-text"></i> Sections Texts') ?></li>
     <!-- <li><?= anchor('svg_logos/manage', '<i class="fa fa-life-ring"></i> Manage Svg Logos') ?></li> -->
-    <li><?= anchor('website_owners/manage', '<i class="fa fa-user-plus"></i> Website Owner') ?></li>
+    <li><?= anchor('website_owners/show/1', '<i class="fa fa-user-plus"></i> Website Owner') ?></li>
 </ul>

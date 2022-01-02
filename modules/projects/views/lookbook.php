@@ -1,6 +1,6 @@
 <section  class="landing border-bottom">
     <div>	
-        <p><?= strtoupper( $project_obj->project_year) ?></p>
+        <p><?php if(($project_obj->start_date != NULL) && ($project_obj->start_date != '0000-00-00')) { echo strtoupper( $project_obj->start_date); }?>  </p>
     <h1><?= $project_obj->project_title ?></h1>
     <h4><?= $project_obj->location ?></h4>
 
@@ -52,14 +52,14 @@ foreach($pictures as $picture) {
     foreach ($categories as $category) {
         $category_url = strtolower(url_title($category));
 ?>
-    <a href="<?= BASE_URL ?>our_work/categories/<?= $category_url?>" class="category tags"><?= $category?></a> 
+    <a href="<?= BASE_URL ?>projects/categories/<?= $category_url?>" class="category tags"><?= $category?></a> 
 <?php } ?>
 
 <?php 
     foreach ($tags as $tag) {
         $tag_url = strtolower(url_title($tag));
 ?>
-    <a href="<?= BASE_URL ?>our_work/tag/<?= $tag_url?>" class="category tags"><?= $tag?></a> 
+    <a href="<?= BASE_URL ?>projects/tag/<?= $tag_url?>" class="category tags"><?= $tag?></a> 
 <?php } ?>
 </section>
 
@@ -82,7 +82,7 @@ foreach ($partners_area as $co) {
     <div class="pagination">
         <a href="<?= $prev_link ?>" class="previous">&laquo;<p class="pagination-tag">&nbsp; preview </p></a>
         <div class="butons">
-            <a href="<?= BASE_URL ?>our_work/projects" class="button-small">Back to Projects</a>
+            <a href="<?= BASE_URL ?>projects/our_work" class="button-small">Back to Projects</a>
             </div>
         <a href="<?= $next_link ?>" class="next"><p class="pagination-tag"> next &nbsp; </p>&raquo;</a>
       </div>
@@ -91,9 +91,7 @@ foreach ($partners_area as $co) {
 <section class="border-top">
     <ul class="social-media">
     <?php 
-        if($project_obj->link_to_houzz != '') {
-            echo '<li><a href="'.$project_obj->link_to_houzz.'" target="_blank"><i class="fab fa-houzz"></i></a></li>';
-        }
+       
 
         if((isset($project_obj->link_to_website)) && ($project_obj->link_to_website != '')) {  
             $globe_link = $project_obj->link_to_website;
@@ -112,7 +110,7 @@ foreach ($partners_area as $co) {
         <li>
         <?php 
         $domain = str_replace("http://", "", BASE_URL);
-        $view_new = BASE_URL.'our_work/lookbooks/'.$project_obj->url_string;
+        $view_new = BASE_URL.'projects/lookbooks/'.$project_obj->url_string;
         
         ?>
 

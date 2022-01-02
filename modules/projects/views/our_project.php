@@ -107,7 +107,7 @@ foreach ($collaborators_area as $co) {
     <div class="pagination">
         <a href="<?= $prev_link ?>" class="previous">&laquo;<p class="pagination-tag">&nbsp; preview </p></a>
         <div class="butons">
-            <a href="<?= BASE_URL ?>our_work/projects" class="button-small">Back to Projects</a>
+            <a href="<?= BASE_URL ?>projects/our_work" class="button-small">Back to Projects</a>
             </div>
         <a href="<?= $next_link ?>" class="next"><p class="pagination-tag"> next &nbsp; </p>&raquo;</a>
       </div>
@@ -138,7 +138,7 @@ foreach ($collaborators_area as $co) {
         <li>
         <?php 
         $domain = str_replace("http://", "", BASE_URL);
-        $view_new = BASE_URL.'our_work/lookbooks/'.$project_obj->url_string;
+        $view_new = BASE_URL.'projects/lookbooks/'.$project_obj->url_string;
         
         ?>
 
