@@ -5,35 +5,6 @@ class Pagination {
     static private $pagination_html;
     static private $pagination_links = [];
 
-    static public function get_settings_design_template() {
-
-        $settings['pagination_open'] = '<div class="pagination" id="paginar">';
-        $settings['pagination_close'] = '</div>';
-
-        $settings['cur_link_open'] = '<a href="#" class="active">';
-        $settings['cur_link_close'] = '</a>';
-
-        $settings['num_link_open'] = '';
-        $settings['num_link_close'] = '';
-
-        $settings['first_link'] = 'First';
-        $settings['first_link_open'] = '';
-        $settings['first_link_close'] = '';
-
-        $settings['last_link'] = 'Last';
-        $settings['last_link_open'] = '';
-        $settings['last_link_close'] = '';
-
-        $settings['prev_link'] = '&laquo;';
-        $settings['prev_link_open'] = '';
-        $settings['prev_link_close'] = '';
-
-        $settings['next_link'] = '&raquo;';
-        $settings['next_link_open'] = '';
-        $settings['next_link_close'] = '';
-        return $settings;
-    }
-
     static protected function assume_page_num_segment() {
         $page_num_segment = 3; //our default assumption
 
@@ -72,6 +43,8 @@ class Pagination {
             unset($data);
             $data['include_css'] = true;
             $data['total_rows'] = $total_rows;
+            
+            
         }
 
         if (!isset($data['total_rows'])) {
@@ -133,7 +106,7 @@ class Pagination {
 
         $segments = get_segments(true);
         $segments = $segments['segments'];
-        unset($segments[4]);
+        /* unset($segments[4]); */
 
         $current_page = self::get_page_num($page_num_segment, $segments);
         $num_pages = (int) ceil($total_rows / $limit);
@@ -148,14 +121,7 @@ class Pagination {
                 $additional_segments = explode('/', $additional_url_string);
 
                 if (isset($additional_segments[3])) {
-                    if ($total_rows == 0) {
-                        $showing_statement = '<p>Your search produced no results.</p>';
-                        $attr = array('class' => 'button alt');
-                        $showing_statement.= anchor(previous_url(), 'Go Back', $attr);
-                    } else {
-                        $showing_statement = '<p>Your search produced the following result(s):</p>';
-                    }
-                    
+                    $showing_statement = '<p>Your search produced the following result(s):</p>';
                 }
             }
 
@@ -337,6 +303,38 @@ class Pagination {
     static public function get_settings_default() {
 
         $settings['pagination_open'] = '<div class="pagination">';
+        $settings['pagination_close'] = '</div>';
+
+        $settings['cur_link_open'] = '<a href="#" class="active">';
+        $settings['cur_link_close'] = '</a>';
+
+        $settings['num_link_open'] = '';
+        $settings['num_link_close'] = '';
+
+        $settings['first_link'] = 'First';
+        $settings['first_link_open'] = '';
+        $settings['first_link_close'] = '';
+
+        $settings['last_link'] = 'Last';
+        $settings['last_link_open'] = '';
+        $settings['last_link_close'] = '';
+
+        $settings['prev_link'] = '&laquo;';
+        $settings['prev_link_open'] = '';
+        $settings['prev_link_close'] = '';
+
+        $settings['next_link'] = '&raquo;';
+        $settings['next_link_open'] = '';
+        $settings['next_link_close'] = '';
+        return $settings;
+    }
+
+
+
+
+    static public function get_settings_design_template() {
+
+        $settings['pagination_open'] = '<div class="pagination" id="paginar">';
         $settings['pagination_close'] = '</div>';
 
         $settings['cur_link_open'] = '<a href="#" class="active">';
