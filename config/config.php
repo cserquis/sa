@@ -20,7 +20,8 @@
 $http = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') ? 'https://' : 'http://';
 $bu = $http;
 $bu.= $_SERVER['SERVER_NAME'];
-define('BASE_URL', $bu.'/sa/');
+/* define('BASE_URL', $bu.'/sa/'); */
+define('BASE_URL', $bu.'/');
 /* define('BASE_URL', 'http://localhost/sa/'); */
 define('ENV', 'dev');
 define('DEFAULT_MODULE', 'welcome');
