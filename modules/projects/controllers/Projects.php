@@ -26,7 +26,6 @@ class Projects extends Trongate {
         if($total_rows>0) {
             $rows = $this->_get_cat_projects($cat_id, true);
             $data['projects'] =  $rows;
-            /* var_dump($data['projects'] ); die(); */
 
             $data['template'] = 'design_template';
             $data['pagination_root'] = 'projects/categories/'.$category_string;
@@ -103,15 +102,11 @@ class Projects extends Trongate {
              $results = 0;   
             } else {
              $results = count($rows);
-             /* echo $results; die(); */
             }          
 
         } else {
             $pagination_data['offset'] = $this->get_offset_cat();
             $pagination_data['limit'] = $this->get_limit();
-
-            /* echo $pagination_data['offset'];
-            die(); */
 
             $sql = 'SELECT
                 projects.id as project_id,
@@ -141,7 +136,7 @@ class Projects extends Trongate {
                 $row_data['project_name'] = $project->project_name;
                 $row_data['url_string'] = $project->url_string;
                 $row_data['picture'] = $project->picture;
-                $row_data['categories'] = $this->_get_categories($project->project_id);
+                $row_data['categories'] = $this->_get_categories($project->project_id, false);
     
                 $data[] = (object) $row_data;
             }
@@ -213,7 +208,8 @@ class Projects extends Trongate {
                 $data['description1'] = '';
                 $data['description2'] = '';
             }
-            $data['categories'] = $this->_get_categories($data['project_obj']->id);
+            $data['categories'] = $this->_get_categories($data['project_obj']->id, true);
+
             $data['published_time'] = date('Y-m-d\TH:m:s+00:00', $data['project_obj']->date_created);
  
             $data['collaborators_area'] = $this->_get_collaborators_areas($data['project_obj']->id);
@@ -366,11 +362,10 @@ class Projects extends Trongate {
             $prev = BASE_URL.'projects/our_work';
         } else {
             //get the code for the video
-            $categories = $this->_get_categories($result1[0]->id);
+            $categories = $this->_get_categories($result1[0]->id, false);
         
             $lookbook = 0;
             $is_look = in_array('Lookbooks', $categories);
-            /* echo $is_look; die(); */
 
             if($is_look == 1) {
                 $lookbook = 1;
@@ -394,11 +389,10 @@ class Projects extends Trongate {
             //no next video found so link back to the sections home area
             $next = BASE_URL.'projects/our_work';
         } else {
-            $categories = $this->_get_categories($result2[0]->id);
+            $categories = $this->_get_categories($result2[0]->id, false);
         
             $lookbook = 0;
             $is_look = in_array('Lookbooks', $categories);
-            /* echo $is_look; die(); */
 
             if($is_look == 1) {
                 $lookbook = 1;
@@ -432,7 +426,7 @@ class Projects extends Trongate {
     function tag() {
 
         $tag_string = segment(3);
-        /* echo $category_string; die(); */
+
         $data['tag_obj'] = $this->model->get_one_where('url_string', $tag_string, 'tags');
         $tag_id = $data['tag_obj']->id;
     
@@ -460,7 +454,6 @@ class Projects extends Trongate {
         if($total_rows>0) {
             $rows = $this->_get_tag_projects($tag_id, true);
             $data['projects'] =  $rows;
-            /* var_dump($data['projects'] ); die(); */
     
             $data['template'] = 'design_template';
             $data['pagination_root'] = 'projects/tag/'.$tag_string;
@@ -505,15 +498,12 @@ class Projects extends Trongate {
              $results = 0;   
             } else {
              $results = count($rows);
-             /* echo $results; die(); */
             }          
     
         } else {
             $pagination_data['offset'] = $this->get_offset_cat();
             $pagination_data['limit'] = $this->get_limit();
     
-            /* echo $pagination_data['offset'];
-            die(); */
     
             $sql = 'SELECT
                 projects.id as project_id,
@@ -653,7 +643,7 @@ class Projects extends Trongate {
             $data['description1'] = '';
             $data['description2'] = '';
         }
-        $data['categories'] = $this->_get_categories($data['project_obj']->id);
+        $data['categories'] = $this->_get_categories($data['project_obj']->id, true);
         $data['published_time'] = date('Y-m-d\TH:m:s+00:00', $data['project_obj']->date_created);
 
         $data['partners_area'] = $this->_get_collaborators_areas($data['project_obj']->id);
@@ -696,7 +686,7 @@ class Projects extends Trongate {
     }
 
 
-    function _get_categories($value) {
+    function _get_categories($value, $our_project) {
         $categories_result = $this->model->get_many_where('projects_id', $value, 'associated_projects_and_categories');
         if ($categories_result == false){
             $categories_print = [];
@@ -704,17 +694,22 @@ class Projects extends Trongate {
             $this->module('categories');
             $categories_print = [];
             foreach ($categories_result as $key => $value) {
-              $categories_print[$key] = $this->_get_category($categories_result[$key]->categories_id);             
+              $categories_print[$key] = $this->_get_category($categories_result[$key]->categories_id, $our_project);             
             }
         }  
         
         return $categories_print;
     }
 
-    function _get_category($categories_id) {
+    function _get_category($categories_id, $our_project) {
         $category_c = $this->model->get_one_where('id', $categories_id, 'categories');
         if ($category_c == true){
-            $category = '<a href="<?= BASE_URL ?>categories/show/'.$category_c->id.'" class="button-small">'.$category_c->category_name.'</a>';
+            if($our_project == true) {
+                $category = $category_c->category_name;
+            } else {
+                $category = '<a href="<?= BASE_URL ?>categories/show/'.$category_c->id.'" class="button-small">'.$category_c->category_name.'</a>';
+            }
+            
         } else {
             $category = "";
         }        
@@ -809,9 +804,6 @@ class Projects extends Trongate {
             $pagination_data['offset'] = $this->get_offset();
             $pagination_data['limit'] = $this->get_limit();
 
-            /* echo $pagination_data['offset'];
-            die(); */
-
             $sql = 'SELECT
             projects.id, 
             projects.project_title,
@@ -839,7 +831,7 @@ class Projects extends Trongate {
                 $row_data['issuu_code'] = $project->issuu_code;
                 $row_data['url_string'] = $project->url_string;
                 $row_data['picture'] = $project->picture;
-                $row_data['categories'] = $this->_get_categories($project->id);
+                $row_data['categories'] = $this->_get_categories($project->id, false);
     
                 $data[] = (object) $row_data;
             }
@@ -976,11 +968,6 @@ class Projects extends Trongate {
 
         $data = $this->_get_data_from_db($update_id);
 
-/*                          foreach ($data as $key => $value) {
-                    echo $key.' is '.$value;
-                    echo '<br>';
-                } */
-               
         
         if(($data['start_date'] == '0000-00-00') || ($data['start_date'] == NULL)) {
             $data['start_date'] = '';
@@ -1040,7 +1027,7 @@ class Projects extends Trongate {
                 $row->postcard = ($row->postcard == 1 ? 'YES' : 'NO');
                 $row->start_date = ($row->start_date == '0000-00-00' ? ' ' : date('m\/d\/Y', strtotime($row->start_date)));
                 $row->finish_date = ($row->finish_date == '0000-00-00' ? ' ' : date('m\/d\/Y', strtotime($row->finish_date)));
-                $row->categories = $this->_get_categories($row->id);
+                $row->categories = $this->_get_categories($row->id, false);
                 $row->clients = $this->_get_clients($row->id);
                 $rows[] = $row;
             }

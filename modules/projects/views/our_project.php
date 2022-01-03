@@ -74,8 +74,11 @@
 <section class="project-example-pagination"></section>
 <section class="project-tags">
 <?php 
+
     foreach ($categories as $category) {
+        
         $category_url = strtolower(url_title($category));
+       
 ?>
     <a href="<?= BASE_URL ?>projects/categories/<?= $category_url?>" class="category tags"><?= $category?></a> 
 <?php } ?>
@@ -83,6 +86,7 @@
 <?php 
     foreach ($tags as $tag) {
         $tag_url = strtolower(url_title($tag));
+        
 ?>
     <a href="<?= BASE_URL ?>projects/tag/<?= $tag_url?>" class="category tags"><?= $tag?></a> 
 <?php } ?>
